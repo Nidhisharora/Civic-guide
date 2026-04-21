@@ -1,17 +1,56 @@
 const axios = require("axios");
 const { retrieveRelevantDocs } = require("./ragService");
 
-require("dotenv").config();
-
 const getAIResponse = async (query) => {
-  const docs = await retrieveRelevantDocs(query);
+  try {
+    // 🔥 Step 1: Basic relevance filter
+    const governmentKeywords = [
+      "passport",
+      "pan",
+      "aadhaar",
+      "aadhar",
+      "driving",
+      "license",
+      "licence",
+      "ration",
+      "voter",
+      "certificate",
+      "scheme",
+      "income",
+      "caste",
+      "domicile",
+      "government",
+      "id card"
+    ];
 
-  const context = docs.map(doc => doc.content).join("\n\n");
+    const isRelevant = governmentKeywords.some((word) =>
+      query.toLowerCase().includes(word)
+    );
 
-  const prompt = `
+    if (!isRelevant) {
+      return "I couldn't find relevant government information.";
+    }
+
+    // 🔥 Step 2: Retrieve docs
+    const docs = await retrieveRelevantDocs(query);
+
+    if (!docs || docs.length === 0) {
+      return "I couldn't find relevant government information.";
+    }
+
+    const context = docs.map((doc) => doc.content).join("\n\n");
+
+    // 🔥 Step 3: Strong prompt
+    const prompt = `
 You are CivicGuide AI.
 
-Use only the context below.
+STRICT RULES:
+
+1. Answer ONLY using the context below.
+2. If query is unrelated to government services, reply EXACTLY:
+I couldn't find relevant government information.
+3. If answer is not in context, reply EXACTLY:
+I couldn't find relevant government information.
 
 Give response in this format:
 
@@ -32,7 +71,7 @@ Mention if available else Not specified
 🌐 Official Portal:
 official link only
 
-Keep answer clean, short, readable.
+Keep answer clean, short and readable.
 
 Context:
 ${context}
@@ -41,31 +80,21 @@ Question:
 ${query}
 `;
 
-  try {
+    // 🔥 Step 4: Ollama local Gemma
     const response = await axios.post(
-      "https://openrouter.ai/api/v1/chat/completions",
+      "http://localhost:11434/api/generate",
       {
-        model: "google/gemma-3-4b-it:free",
-        messages: [
-          {
-            role: "user",
-            content: prompt
-          }
-        ]
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "Content-Type": "application/json"
-        }
+        model: "gemma2:2b",
+        prompt: prompt,
+        stream: false
       }
     );
 
-    return response.data.choices[0].message.content;
+    return response.data.response.trim();
 
   } catch (error) {
     console.log(error.response?.data || error.message);
-    return "AI service temporarily unavailable.";
+    return "Local AI service unavailable.";
   }
 };
 
