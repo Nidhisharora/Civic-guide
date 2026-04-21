@@ -62,9 +62,13 @@ npm run dev
 cd server
 npm install
 
-## Create Environment File
- -> Inside server/ create: .env
- -> Add: OPENROUTER_API_KEY=your_api_key_here
+## Install Ollama
+  https://ollama.com/download
+
+## Run Gemma Model
+  ollama run gemma2:2b
+
+
 
 ## Start Backend
 nodemon server.js
@@ -92,14 +96,7 @@ nodemon server.js
 
 ---
 
-# 📸 UI Preview
 
-Dark futuristic interface with:
-
-- Premium Landing Page
-- AI Chat Demo
-- Smooth Animations
-- Responsive Layout
 
 ---
 

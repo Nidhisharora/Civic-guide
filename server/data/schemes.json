@@ -1,0 +1,37 @@
+[
+  {
+    "name": "PM-Kisan",
+    "description": "Income support scheme for farmers by Government of India",
+    "occupation": "farmer",
+    "maxIncome": 600000,
+    "benefit": "₹6000 per year in 3 installments",
+    "steps": [
+      "Visit pmkisan.gov.in",
+      "Register with Aadhaar",
+      "Submit land ownership details"
+    ]
+  },
+  {
+    "name": "Ayushman Bharat (PM-JAY)",
+    "description": "Health insurance scheme for low-income families",
+    "maxIncome": 200000,
+    "benefit": "Up to ₹5 lakh health coverage per family per year",
+    "steps": [
+      "Check eligibility on pmjay.gov.in",
+      "Visit nearest empanelled hospital",
+      "Verify Aadhaar and ration card"
+    ]
+  },
+  {
+    "name": "National Scholarship Portal",
+    "description": "Scholarships for students across India",
+    "occupation": "student",
+    "maxIncome": 300000,
+    "benefit": "Financial assistance for education",
+    "steps": [
+      "Visit scholarships.gov.in",
+      "Register and fill application",
+      "Upload required documents"
+    ]
+  }
+]

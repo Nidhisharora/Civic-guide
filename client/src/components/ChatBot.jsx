@@ -46,7 +46,24 @@ const ChatBot = () => {
 
       {response && (
         <div className="mt-5 bg-slate-800 p-4 rounded-xl whitespace-pre-line leading-7 text-sm text-gray-100 border border-slate-700">
-          {response}
+          <div className="whitespace-pre-line">
+            {response.split(" ").map((word, index) => {
+              if (word.startsWith("http")) {
+                return (
+                  <a
+                    key={index}
+                    href={word}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 underline break-all"
+                  >
+                    {word}{" "}
+                  </a>
+                );
+              }
+              return word + " ";
+            })}
+          </div>
         </div>
       )}
     </div>

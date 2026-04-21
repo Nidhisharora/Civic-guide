@@ -19,3 +19,6 @@ app.use("/api/chat", chatRoutes);
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });
+
+const schemeRoutes = require("./routes/schemeRoutes");
+app.use("/api/schemes", schemeRoutes);
