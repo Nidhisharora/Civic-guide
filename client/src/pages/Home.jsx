@@ -19,7 +19,6 @@ const Home = () => {
   return (
     <div className="relative bg-slate-950 text-white min-h-screen overflow-hidden">
 
-      {/* Background Glow */}
       <div className="glow-ball absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full"></div>
       <div className="glow-ball absolute bottom-20 right-10 w-72 h-72 bg-blue-500/20 blur-3xl rounded-full"></div>
 

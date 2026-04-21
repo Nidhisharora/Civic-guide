@@ -5,10 +5,54 @@
   },
   {
     "title": "Driving License",
-    "content": "To apply for a driving license, visit Parivahan portal, fill application form, upload learner license, book driving test slot, and pay fees."
+    "content": "To apply for a driving license, visit Parivahan portal, fill application form, upload learner license, book driving test slot, and pay fees. Required documents include Aadhaar Card and age proof."
   },
   {
     "title": "PAN Card",
-    "content": "To apply for PAN card, visit NSDL/UTIITSL portal, fill PAN application form, upload ID proof, address proof, and photograph."
+    "content": "To apply for PAN card, visit NSDL or UTIITSL portal, fill PAN application form, upload ID proof, address proof, and photograph."
+  },
+  {
+    "title": "Aadhaar Card Update",
+    "content": "To update Aadhaar details, visit UIDAI portal or Aadhaar Seva Kendra. You can update address, phone number, biometric details, and name correction."
+  },
+  {
+    "title": "Voter ID Card",
+    "content": "To apply for Voter ID, visit National Voters Service Portal (NVSP), register, fill Form 6, upload identity and address proof."
+  },
+  {
+    "title": "Ration Card",
+    "content": "To apply for ration card, visit state food supply portal, submit family details, income proof, Aadhaar cards, and address proof."
+  },
+  {
+    "title": "Birth Certificate",
+    "content": "To apply for birth certificate, visit municipal corporation portal or office, submit hospital records, parent ID proof, and application form."
+  },
+  {
+    "title": "Income Certificate",
+    "content": "To apply for income certificate, visit state e-district portal, submit Aadhaar card, income proof, salary slip or affidavit."
+  },
+  {
+    "title": "Caste Certificate",
+    "content": "To apply for caste certificate, visit e-district portal, submit Aadhaar card, address proof, family certificate, and community proof."
+  },
+  {
+    "title": "Domicile Certificate",
+    "content": "To apply for domicile certificate, visit e-district portal, submit residence proof, Aadhaar card, electricity bill, and affidavit."
+  },
+  {
+    "title": "Marriage Certificate",
+    "content": "To apply for marriage certificate, visit municipal portal, submit marriage proof, identity proofs of bride and groom, witness documents."
+  },
+  {
+    "title": "PM Kisan Scheme",
+    "content": "PM Kisan provides financial support to eligible farmers. Apply through PM Kisan portal using Aadhaar and land ownership details."
+  },
+  {
+    "title": "Ayushman Bharat Scheme",
+    "content": "Ayushman Bharat provides health insurance benefits to eligible families. Check eligibility using Aadhaar and ration card."
+  },
+  {
+    "title": "Startup India Registration",
+    "content": "To register startup under Startup India, visit Startup India portal, submit company incorporation certificate and business details."
   }
 ]
