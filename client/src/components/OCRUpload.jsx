@@ -28,6 +28,7 @@ const OCRUpload = () => {
       );
 
       setData(res.data);
+
     } catch (error) {
       console.error(error);
       alert("OCR failed");
@@ -43,7 +44,7 @@ const OCRUpload = () => {
         Upload and verify your documents instantly.
       </p>
 
-      {/* Custom File Input */}
+      {/* File Input */}
       <label className="flex items-center justify-center border-2 border-dashed border-gray-600 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition">
         <span className="text-gray-400">
           {file ? file.name : "Click to choose file"}
@@ -70,18 +71,26 @@ const OCRUpload = () => {
         </div>
       )}
 
-      {/* Result */}
+      {/* RESULT SECTION */}
       {data && (
         <div className="mt-6">
-          <h3 className="font-bold">Extracted Text:</h3>
-          <pre className="bg-slate-800 p-3 rounded mt-2 max-h-60 overflow-auto">
-            {data.rawText}
-          </pre>
 
-          <h3 className="font-bold mt-4">Structured Data:</h3>
-          <pre className="bg-slate-800 p-3 rounded mt-2">
-            {JSON.stringify(data.structuredData, null, 2)}
-          </pre>
+          {/* RAW TEXT */}
+          {/* <h3 className="font-bold">Extracted Text:</h3>
+          <pre className="bg-slate-800 p-3 rounded mt-2 max-h-60 overflow-auto whitespace-pre-wrap">
+            {data.rawText}
+          </pre> */}
+
+          {/* AI ANALYSIS */}
+          {data.aiAnalysis && (
+            <div className="mt-6">
+              <h3 className="font-bold">AI Analysis:</h3>
+              <pre className="bg-slate-800 p-3 rounded mt-2 whitespace-pre-wrap">
+                {data.aiAnalysis}
+              </pre>
+            </div>
+          )}
+
         </div>
       )}
     </div>

@@ -1,6 +1,14 @@
 const axios = require("axios");
 const { retrieveRelevantDocs } = require("./ragService");
 
+const OLLAMA_URL = "http://localhost:11434/api/generate";
+
+/**
+ * 🔹 Chat with RAG (for user queries)
+ */
+const getAIResponse = async (query) => {
+  const docs = await retrieveRelevantDocs(query);
+  const context = docs.map(doc => doc.content).join("\n\n");
 const getAIResponse = async (query) => {
   try {
     // 🔥 Step 1: Basic relevance filter
@@ -44,6 +52,7 @@ const getAIResponse = async (query) => {
     const prompt = `
 You are CivicGuide AI.
 
+Use ONLY the context below to answer.
 STRICT RULES:
 
 1. Answer ONLY using the context below.
@@ -52,7 +61,7 @@ I couldn't find relevant government information.
 3. If answer is not in context, reply EXACTLY:
 I couldn't find relevant government information.
 
-Give response in this format:
+Respond in this format:
 
 ✅ Process Name
 
@@ -66,9 +75,10 @@ Give response in this format:
 - item
 
 💰 Fees:
-Mention if available else Not specified
+Mention if available else "Not specified"
 
 🌐 Official Portal:
+Provide official link only
 official link only
 
 Keep answer clean, short and readable.
@@ -80,6 +90,71 @@ Question:
 ${query}
 `;
 
+  try {
+    const response = await axios.post(OLLAMA_URL, {
+      model: "gemma4:e4b",
+      prompt: prompt,
+      stream: false
+    });
+
+    return response.data.response;
+
+  } catch (error) {
+    console.error("AI Chat Error:", error.message);
+    return "Local AI failed.";
+  }
+};
+
+/**
+ * 🔹 OCR + AI Document Analysis
+ */
+const analyzeDocument = async (ocrText) => {
+  const prompt = `
+You are CivicGuide AI.
+
+A user uploaded a government document.
+The OCR text may be noisy or incorrect.
+
+Your job:
+- Understand the document
+- Extract correct information even if text is messy
+
+Respond STRICTLY in this format:
+
+📄 Document Type:
+(Aadhaar / PAN / etc)
+
+👤 Extracted Details:
+- Name:
+- DOB:
+- ID Number:
+
+🧠 Purpose:
+Explain in simple words what this document is used for
+
+
+
+IMPORTANT:
+- Ignore OCR mistakes
+- Do NOT guess randomly
+- If something is unclear, write "Not clearly visible"
+
+Document Text:
+${ocrText}
+`;
+
+  try {
+    const response = await axios.post(OLLAMA_URL, {
+      model: "gemma4:e4b",
+      prompt: prompt,
+      stream: false
+    });
+
+    return response.data.response;
+
+  } catch (error) {
+    console.error("AI OCR Error:", error.message);
+    return "Document analysis failed.";
     // 🔥 Step 4: Ollama local Gemma
     const response = await axios.post(
       "http://localhost:11434/api/generate",
@@ -98,4 +173,7 @@ ${query}
   }
 };
 
-module.exports = { getAIResponse };
+module.exports = {
+  getAIResponse,
+  analyzeDocument
+};

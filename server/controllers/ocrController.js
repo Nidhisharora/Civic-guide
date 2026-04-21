@@ -5,7 +5,6 @@ const { extractTextFromImage } = require("../services/ocrService");
  */
 const uploadDocument = async (req, res) => {
   try {
-    // Check if file exists
     if (!req.file) {
       return res.status(400).json({
         success: false,
@@ -13,17 +12,14 @@ const uploadDocument = async (req, res) => {
       });
     }
 
-    // Get file path
     const filePath = req.file.path;
 
-    // Call OCR service
     const result = await extractTextFromImage(filePath);
 
-    // Send response
     res.status(200).json({
       success: true,
       rawText: result.rawText,
-      structuredData: result.structuredData
+      aiAnalysis: result.aiAnalysis
     });
 
   } catch (error) {
@@ -31,7 +27,7 @@ const uploadDocument = async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: "OCR processing failed"
+      message: "OCR + AI processing failed"
     });
   }
 };
