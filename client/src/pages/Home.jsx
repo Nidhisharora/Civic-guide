@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import ChatBot from "../components/ChatBot";
-import SchemeForm from "../components/SchemeForm";
 import OCRUpload from "../components/OCRUpload";
+import SchemeChecker from "../components/SchemeChecker/SchemeChecker";
 
 const Home = () => {
   const scrollToDemo = () => {
@@ -20,8 +20,8 @@ const Home = () => {
     <div className="relative bg-slate-950 text-white min-h-screen overflow-hidden">
 
       {/* Background Glow */}
-      <div className="glow-ball absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full"></div>
-      <div className="glow-ball absolute bottom-20 right-10 w-72 h-72 bg-blue-500/20 blur-3xl rounded-full"></div>
+      <div className="pointer-events-none absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full"></div>
+      <div className="pointer-events-none absolute bottom-20 right-10 w-72 h-72 bg-blue-500/20 blur-3xl rounded-full"></div>
 
       <Navbar scrollToDemo={scrollToDemo} />
 
@@ -100,12 +100,28 @@ const Home = () => {
           Live Demo
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-start">
+
+          {/* Card 1 — AI Chat (unchanged) */}
           <ChatBot />
-          <SchemeForm />
+
+          {/* Card 2 — Scheme Checker (NEW card wrapper) */}
+          <div className="bg-slate-900/80 backdrop-blur-md rounded-2xl p-6 overflow-y-auto max-h-[620px]">
+            <h3 className="text-xl font-bold text-white mb-1">
+              Scheme Eligibility Checker
+            </h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Find government schemes you qualify for.
+            </p>
+            <SchemeChecker />
+          </div>
+
+          {/* Card 3 — OCR (unchanged) */}
           <OCRUpload />
+
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="text-center py-8 text-gray-500 border-t border-slate-800">
